@@ -1,8 +1,8 @@
 package com.ne.csedu.haatprotidinnew;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -11,7 +11,6 @@ import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 interface AsyncResponse {
@@ -36,12 +35,12 @@ public class GetMethodHandler extends AsyncTask<String, String, String>{
         //this.delegate = delegate;
     //}
     //delegate = null;
-    public GetMethodHandler(String[] attribute, String[] value, int numberOfComponents, String initUrl){
+    public GetMethodHandler(String[] attribute, String[] value, int numberOfComponents, String initUrl, Context delegate){
         this.attribute = attribute;
         this.value = value;
         this.numberOfComponents = numberOfComponents;
         this.initUrl = initUrl;
-        //this.delegate = delegate;
+        this.delegate = (AsyncResponse) delegate;
     }
 
 

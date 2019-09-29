@@ -50,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@android:color/white"
-        android:hint="@string/userid"
-        android:inputType="phone"
+        android:hint="Location"
+        android:inputType="text"
         android:textColor="@color/hpcolor"
         android:padding="10dp" />
 
@@ -62,8 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@android:color/white"
-        android:hint="@string/useremail"
-        android:inputType="textEmailAddress"
+        android:hint="Type"
+        android:inputType="text"
         android:textColor="@color/hpcolor"
         android:padding="10dp" />
 
@@ -74,35 +74,19 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@android:color/white"
-        android:hint="@string/password"
-        android:inputType="textPassword"
+        android:hint="Color"
+        android:inputType="text"
         android:padding="10dp"
         android:textColor="@color/hpcolor"/>
 
     <Button
-        android:id="@+id/btnSubmit"
+        android:id="@+id/btnSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="#cc3300"
-        android:text="Submit"
+        android:text="Search"
         android:textColor="@android:color/white" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/already_having_account"
-        android:textColor="#ccc" />
-
-    <Button
-        android:id="@+id/btnRegisterLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="#cc3300"
-        android:text="@string/log_in"
-        android:textColor="@android:color/white" />
 
 </LinearLayout>

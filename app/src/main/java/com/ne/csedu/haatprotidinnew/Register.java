@@ -2,6 +2,7 @@ package com.ne.csedu.haatprotidinnew;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class Register extends AppCompatActivity {
 
+    Context context;
     EditText editUserID, editPassword, editEmail,editName;
     Button btnSignIn, btnRegister;
 
@@ -29,6 +31,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
 
+        context = this;
         editUserID =(EditText)findViewById(R.id.etUserID);
         editPassword=(EditText)findViewById(R.id.etPassword);
         editName =(EditText)findViewById(R.id.etFullName);
@@ -53,7 +56,7 @@ public class Register extends AppCompatActivity {
                 values[2] = editName.getText().toString();
                 values[3] = editEmail.getText().toString();
 
-                GetMethodHandler request = new GetMethodHandler(attributes,values,4,"https://haatprotidin.com/php_an/register.php");
+                GetMethodHandler request = new GetMethodHandler(attributes,values,4,"https://haatprotidin.com/php_an/register.php", context);
 
                 request.execute();
                 //String response = request.res;

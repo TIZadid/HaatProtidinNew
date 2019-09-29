@@ -3,6 +3,7 @@ package com.ne.csedu.haatprotidinnew;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -29,6 +30,7 @@ public class LoginPage extends Activity implements AsyncResponse{
 
     EditText editUserID, editPassword;
     Button btnSignIn, btnRegister;
+    Context context;
 
     String URL= "http://haatprotidin.com/php_an/login.php";
     int i=0;
@@ -38,6 +40,7 @@ public class LoginPage extends Activity implements AsyncResponse{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
 
+        context = this;
         editUserID =(EditText)findViewById(R.id.etLoginUserID);
         editPassword=(EditText)findViewById(R.id.etLoginPassword);
 
@@ -54,7 +57,7 @@ public class LoginPage extends Activity implements AsyncResponse{
                 attributes[1] = "password";
                 values[0] = editUserID.getText().toString();
                 values[1] = editPassword.getText().toString();
-                GetMethodHandler request = new GetMethodHandler(attributes,values,2,"https://haatprotidin.com/php_an/login.php");
+                GetMethodHandler request = new GetMethodHandler(attributes,values,2,"https://haatprotidin.com/php_an/login.php",context);
                 //GetMethodHandler.delegate = this;
                 try {
                     request.execute().get();
@@ -85,5 +88,22 @@ public class LoginPage extends Activity implements AsyncResponse{
     @Override
     public void processFinish(String output) {
         System.out.println(output);
+        try {
+            JSONObject jsonObject = new JSONObject(output);
+            System.out.println(jsonObject);
+            String jsonstring = jsonObject.get("success").toString();
+            if(jsonstring.equals("1")){
+                Intent intent = new Intent(LoginPage.this,HomePage.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(LoginPage.this,"Wrong Information",Toast.LENGTH_LONG).show();
+            }
+
+
+        }catch (JSONException err){
+            Log.d("Error", err.toString());
+        }
+
     }
 }
