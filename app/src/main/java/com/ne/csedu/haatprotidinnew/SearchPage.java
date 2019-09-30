@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 public class SearchPage extends AppCompatActivity {
-
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,20 +26,24 @@ public class SearchPage extends AppCompatActivity {
         editlocation.setVisibility(View.GONE);
         edittype.setVisibility(View.GONE);
         editcolor.setVisibility(View.GONE);
+        count = 0;
 
         Filterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RadioButton radioButton = (RadioButton) view;
-                if (radioButton.isChecked()) {
+                if (radioButton.isChecked() && (count ==0)) {
                         editlocation.setVisibility(View.VISIBLE);
                         edittype.setVisibility(View.VISIBLE);
                         editcolor.setVisibility(View.VISIBLE);
+                        count=1;
                 }
-                else{
+                else if(radioButton.isChecked() && count==1){
+                    radioButton.setChecked(false);
                     editlocation.setVisibility(View.GONE);
                     edittype.setVisibility(View.GONE);
                     editcolor.setVisibility(View.GONE);
+                    count =0;
                 }
             }
         });

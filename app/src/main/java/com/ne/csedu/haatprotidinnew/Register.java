@@ -2,6 +2,7 @@ package com.ne.csedu.haatprotidinnew;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,8 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class Register extends AppCompatActivity {
+public class Register extends Activity implements AsyncResponse{
 
     Context context;
     EditText editUserID, editPassword, editEmail,editName;
@@ -57,8 +59,13 @@ public class Register extends AppCompatActivity {
                 values[3] = editEmail.getText().toString();
 
                 GetMethodHandler request = new GetMethodHandler(attributes,values,4,"https://haatprotidin.com/php_an/register.php", context);
-
-                request.execute();
+                try {
+                    request.execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 //String response = request.res;
                 //System.out.println("login theke " + response);
             }
@@ -73,5 +80,10 @@ public class Register extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void processFinish(String output) {
+        System.out.println(output);
     }
 }
