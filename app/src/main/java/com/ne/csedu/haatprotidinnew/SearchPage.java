@@ -21,7 +21,7 @@ import android.widget.Toast;
 public class SearchPage extends AppCompatActivity {
     String[] locationOptions = {"None","dasd","dasdasda","aswq"};
     String[] typeOptions = {"None","dasd111","dasdasda","aswq"};
-    String[] colorOptions = {"None","dasd222","dasdasda","aswq"};
+    String[] colorOptions = {"None","dasd222","dasdasda","aswq","sadasdas"};
     int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
