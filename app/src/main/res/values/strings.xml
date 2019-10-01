@@ -12,4 +12,13 @@
     <string name="sign_up">Sign Up</string>
     <string name="logout">Logout</string>
     <string name="useremail">Email</string>
+    <string-array name="Animals">
+        <item>None</item>
+        <item>Lion</item>
+        <item>Tiger</item>
+        <item>Elephant</item>
+        <item>Zebra</item>
+        <item>Giraffe</item>
+        <item>Deer</item>
+    </string-array>
 </resources>
