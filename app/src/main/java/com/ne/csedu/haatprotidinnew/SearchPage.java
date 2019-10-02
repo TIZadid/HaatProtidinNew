@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ public class SearchPage extends AppCompatActivity {
 
         EditText edittextsearch = findViewById(R.id.etSearchtext);
 
-        RadioButton Filterbutton =  findViewById(R.id.Filter);
+        Switch Filterbutton =  findViewById(R.id.Filter);
         final Spinner editlocation = findViewById(R.id.etlocation);
         final TextView locationLabel =findViewById(R.id.tvlocation);
         final Spinner edittype = findViewById(R.id.ettype);
@@ -55,8 +56,8 @@ public class SearchPage extends AppCompatActivity {
         Filterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RadioButton radioButton = (RadioButton) view;
-                if (radioButton.isChecked() && (count ==0)) {
+                Switch radioButton = (Switch) view;
+                if (radioButton.isChecked()) {
                         editlocation.setVisibility(View.VISIBLE);
                         locationLabel.setVisibility(View.VISIBLE);
 
@@ -68,7 +69,7 @@ public class SearchPage extends AppCompatActivity {
 
                         count=1;
                 }
-                else if(radioButton.isChecked() && count==1){
+                else if(!radioButton.isChecked()){
                     radioButton.setChecked(false);
                     editlocation.setVisibility(View.GONE);
                     locationLabel.setVisibility(View.GONE);
