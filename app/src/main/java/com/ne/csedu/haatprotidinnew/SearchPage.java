@@ -57,7 +57,7 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Switch radioButton = (Switch) view;
-                if (radioButton.isChecked() && (count ==0)) {
+                if (radioButton.isChecked()) {
                         editlocation.setVisibility(View.VISIBLE);
                         locationLabel.setVisibility(View.VISIBLE);
 
@@ -69,7 +69,7 @@ public class SearchPage extends AppCompatActivity {
 
                         count=1;
                 }
-                else if(radioButton.isChecked() && count==1){
+                else if(!radioButton.isChecked()){
                     radioButton.setChecked(false);
                     editlocation.setVisibility(View.GONE);
                     locationLabel.setVisibility(View.GONE);

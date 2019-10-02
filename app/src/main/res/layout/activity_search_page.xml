@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:gravity="center_vertical"
+
     android:orientation="vertical"
-    android:padding="50dp"
+    android:padding="20dp"
     tools:context=".Register">
 
     <TextView
@@ -35,6 +35,7 @@
             android:layout_weight="3"
             android:background="@color/hpcolor"
             android:hint="Text Search"
+            android:textSize="25dp"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColor="@android:color/white" />
@@ -52,17 +53,19 @@
 
     <Switch
         android:id="@+id/Filter"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
         android:checked="false"
 
-        android:text="Filter"
+        android:text="Filter:  "
         android:textColor="#cc3300"
-        android:textSize="30sp" />
+        android:textColorHighlight="#cc3300"
+        android:textColorLink="@color/hpcolor"
+        android:textSize="25sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -72,15 +75,15 @@
             android:layout_height="wrap_content"
             android:text="Type:"
             android:textColor="#cc3300"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/ettype"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_marginTop="18dp"
-            android:background="@android:color/white"
+            android:background="#FFB4A9"
 
             />
 
@@ -88,7 +91,7 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -96,17 +99,17 @@
             android:id="@+id/tvcolor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Type:"
+            android:text="Color:"
             android:textColor="#cc3300"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/etcolor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_marginTop="18dp"
-            android:background="@android:color/white"
+            android:background="#FFB4A9"
 
             />
 
@@ -114,7 +117,7 @@
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -124,16 +127,15 @@
             android:layout_height="wrap_content"
             android:text="Location:"
             android:textColor="#cc3300"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
             android:id="@+id/etlocation"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_marginTop="18dp"
-            android:background="@android:color/white"
-
+            android:background="#FFB4A9"
             />
 
     </LinearLayout>
