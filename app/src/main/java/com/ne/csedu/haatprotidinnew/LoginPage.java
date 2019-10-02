@@ -101,7 +101,7 @@ public class LoginPage extends Activity implements AsyncResponse{
             }
 
 
-        }catch (JSONException err){
+        }catch (Exception err){
             Log.d("Error", err.toString());
         }
 

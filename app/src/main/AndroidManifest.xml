@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchPage"></activity>
+        <activity android:name=".Profile"></activity>
+        <activity android:name=".Adddokan" />
+        <activity android:name=".Agentsearch" />
+        <activity android:name=".SearchPage" />
         <activity android:name=".HomePage" />
         <activity android:name=".Register" />
         <activity android:name=".LoginPage">

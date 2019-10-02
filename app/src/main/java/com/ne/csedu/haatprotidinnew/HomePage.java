@@ -18,12 +18,19 @@ public class HomePage extends Activity {
 
         Button btnWholeseller=(Button)findViewById(R.id.btnWholeseller);
         Button btnRetailer=(Button)findViewById(R.id.btnRetailer);
-        Button btnCustomer = findViewById(R.id.btnCustomer);
+        Button btnagentsearch = findViewById(R.id.btnAgentSearch);
 
         btnWholeseller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(HomePage.this, SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        btnagentsearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePage.this,Agentsearch.class);
                 startActivity(intent);
             }
         });
