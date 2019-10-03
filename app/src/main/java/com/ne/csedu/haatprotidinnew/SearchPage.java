@@ -1,8 +1,12 @@
 package com.ne.csedu.haatprotidinnew;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,15 +23,38 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class SearchPage extends AppCompatActivity {
     String[] locationOptions = {"None","dasd","dasdasda","aswq"};
     String[] typeOptions = {"None","dasd111","dasdasda","aswq"};
     String[] colorOptions = {"None","dasd222","dasdasda","aswq","sadasdas"};
     int count;
+    int index,userIndex;
+    Context context;
+    Intent intent = new Intent(this,SearchPage.class);
+
+    ArrayList<String> currentFilters = new ArrayList<>();
+
+    private RecyclerView htRecyclerView;
+    private HorTagRecyclerViewAdapter htAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
+
+
+        //hortag start
+        htRecyclerView = findViewById(R.id.hor_tag_recycler_view);
+        layoutManager = new LinearLayoutManager(this);
+        htRecyclerView.setLayoutManager(layoutManager);
+
+        htAdapter = new HorTagRecyclerViewAdapter(currentFilters,this);
+        htRecyclerView.setAdapter(htAdapter);
+
 
         EditText edittextsearch = findViewById(R.id.etSearchtext);
 
@@ -52,6 +79,11 @@ public class SearchPage extends AppCompatActivity {
 
 
         count = 0;
+
+        currentFilters = getIntent().getStringArrayListExtra("currentFilters");
+        if(currentFilters == null) currentFilters = new ArrayList<>();
+        Collections.sort(currentFilters);
+        index = currentFilters.size();
 
         Filterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +127,10 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(SearchPage.this, locationOptions[position] + " selected", Toast.LENGTH_SHORT).show();
+                currentFilters.add(locationOptions[position]);
+                intent.putExtra("currentFilters",currentFilters);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
             }
 
             @Override
@@ -115,6 +151,10 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(SearchPage.this, typeOptions[position] + " selected", Toast.LENGTH_SHORT).show();
+                currentFilters.add(locationOptions[position]);
+                intent.putExtra("currentFilters",currentFilters);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
             }
 
             @Override
@@ -135,6 +175,10 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(SearchPage.this, colorOptions[position] + " selected", Toast.LENGTH_SHORT).show();
+                currentFilters.add(locationOptions[position]);
+                intent.putExtra("currentFilters",currentFilters);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
             }
 
             @Override
