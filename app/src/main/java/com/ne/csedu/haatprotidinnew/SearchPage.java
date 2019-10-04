@@ -27,13 +27,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SearchPage extends AppCompatActivity {
-    String[] locationOptions = {"None","dasd","dasdasda","aswq"};
-    String[] typeOptions = {"None","dasd111","dasdasda","aswq"};
-    String[] colorOptions = {"None","dasd222","dasdasda","aswq","sadasdas"};
+    ArrayList<String> locationOptions = new ArrayList<String>() {};
+
+    ArrayList<String> categoryOptions = new ArrayList<String>() {};
+
+    ArrayList<String> colorOptions = new ArrayList<String>() {};
+
     int count;
     int index,userIndex;
-    Context context;
-    Intent intent = new Intent(this,SearchPage.class);
+
 
     ArrayList<String> currentFilters = new ArrayList<>();
 
@@ -45,6 +47,7 @@ public class SearchPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
+
 
 
         //hortag start
@@ -66,6 +69,17 @@ public class SearchPage extends AppCompatActivity {
         final Spinner editcolor = findViewById(R.id.etcolor);
         final TextView colorLabel = findViewById(R.id.tvcolor);
 
+        Intent fromHomeintent = getIntent();
+        ArrayList<String> temp = new ArrayList<>();
+        temp =fromHomeintent.getStringArrayListExtra("location");
+        locationOptions.addAll(temp);
+        System.out.println("babu" + locationOptions);
+        temp = fromHomeintent.getStringArrayListExtra("category");
+        categoryOptions.addAll(temp);
+        System.out.println(categoryOptions);
+        temp = fromHomeintent.getStringArrayListExtra("color");
+        colorOptions.addAll(temp);
+        System.out.println("khela " + locationOptions.size() + " " + categoryOptions.size()+ " " +colorOptions.size());
 
         editlocation.setVisibility(View.GONE);
         locationLabel.setVisibility(View.GONE);
@@ -83,7 +97,6 @@ public class SearchPage extends AppCompatActivity {
         currentFilters = getIntent().getStringArrayListExtra("currentFilters");
         if(currentFilters == null) currentFilters = new ArrayList<>();
         Collections.sort(currentFilters);
-        index = currentFilters.size();
 
         Filterbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,14 +136,32 @@ public class SearchPage extends AppCompatActivity {
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Applying the adapter to our spinner
         editlocation.setAdapter(locationAdapter);
+        final Intent intent = new Intent(SearchPage.this,SearchPage.class);
+
+
+        intent.putExtra("currentFilters",currentFilters);
+        intent.putExtra("location",locationOptions);
+        intent.putExtra("color",colorOptions);
+        intent.putExtra("category",categoryOptions);
+
         editlocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(SearchPage.this, locationOptions[position] + " selected", Toast.LENGTH_SHORT).show();
-                currentFilters.add(locationOptions[position]);
-                intent.putExtra("currentFilters",currentFilters);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                if(parent.getItemAtPosition(position).equals("select a category")){
+                    System.out.println("mammmmaaa mojaaaaa");
+                }
+                else {
+                    Toast.makeText(SearchPage.this, locationOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+                    currentFilters.add(locationOptions.get(position));
+                    intent.putExtra("currentFilters",currentFilters);
+                    intent.putExtra("location",locationOptions);
+                    intent.putExtra("color",colorOptions);
+                    intent.putExtra("category",categoryOptions);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(intent);
+                }
+                System.out.println(position);
             }
 
             @Override
@@ -141,7 +172,7 @@ public class SearchPage extends AppCompatActivity {
 
 
         //TYPE ER JONNO EKHAN THEKE
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,typeOptions);
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categoryOptions);
         // Specify layout to be used when list of choices appears
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Applying the adapter to our spinner
@@ -150,11 +181,20 @@ public class SearchPage extends AppCompatActivity {
         edittype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(SearchPage.this, typeOptions[position] + " selected", Toast.LENGTH_SHORT).show();
-                currentFilters.add(locationOptions[position]);
-                intent.putExtra("currentFilters",currentFilters);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                if(parent.getItemAtPosition(position).equals("select a category")){
+                    System.out.println("mammmmaaa mojaaaaa");
+                }
+                else {
+                    Toast.makeText(SearchPage.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+                    currentFilters.add(categoryOptions.get(position));
+                    intent.putExtra("currentFilters",currentFilters);
+                    intent.putExtra("location",locationOptions);
+                    intent.putExtra("color",colorOptions);
+                    intent.putExtra("category",categoryOptions);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -174,11 +214,20 @@ public class SearchPage extends AppCompatActivity {
         editcolor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(SearchPage.this, colorOptions[position] + " selected", Toast.LENGTH_SHORT).show();
-                currentFilters.add(locationOptions[position]);
-                intent.putExtra("currentFilters",currentFilters);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                if(parent.getItemAtPosition(position).equals("select a category")){
+                    System.out.println("mammmmaaa mojaaaaa");
+                }
+                else {
+                    Toast.makeText(SearchPage.this, colorOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+                    currentFilters.add(colorOptions.get(position));
+                    intent.putExtra("currentFilters",currentFilters);
+                    intent.putExtra("location",locationOptions);
+                    intent.putExtra("color",colorOptions);
+                    intent.putExtra("category",categoryOptions);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    startActivity(intent);
+                }
             }
 
             @Override

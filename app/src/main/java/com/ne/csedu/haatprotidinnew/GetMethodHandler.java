@@ -108,9 +108,7 @@ public class GetMethodHandler extends AsyncTask<String, String, String>{
                 return "response was unsuccesful, try again";
             }
             //System.out.println("message " + response.message() + " | body " + response.body().string());
-            JSONObject jusu = new JSONObject(response.body().string());
-            System.out.println("output " + jusu.toString());
-            return jusu.toString();
+            return response.body().string();
         } catch (Exception e) {
             System.out.println("error bole " + e);
         }

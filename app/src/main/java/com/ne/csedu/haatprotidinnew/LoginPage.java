@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +32,7 @@ public class LoginPage extends Activity implements AsyncResponse{
     EditText editUserID, editPassword;
     Button btnSignIn, btnRegister;
     Context context;
+
 
     String URL= "http://haatprotidin.com/php_an/login.php";
     int i=0;
@@ -53,7 +55,7 @@ public class LoginPage extends Activity implements AsyncResponse{
             public void onClick(View view) {
                 String attributes[] = new String[2];
                 String values[] = new String[2];
-                attributes[0] = "username";
+                attributes[0] = "phone_no";
                 attributes[1] = "password";
                 values[0] = editUserID.getText().toString();
                 values[1] = editPassword.getText().toString();
@@ -66,8 +68,6 @@ public class LoginPage extends Activity implements AsyncResponse{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                String response = request.res;
-                System.out.println("login theke " + response);
                 //Intent intent = new Intent(LoginPage.this, Register.class);
                 //startActivity(intent);
             }

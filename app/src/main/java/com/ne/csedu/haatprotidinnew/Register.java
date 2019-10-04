@@ -48,7 +48,7 @@ public class Register extends Activity implements AsyncResponse{
 
                 String attributes[] = new String[4];
                 String values[] = new String[4];
-                attributes[0] = "username";
+                attributes[0] = "phone_no";
                 attributes[1] = "password";
                 attributes[2] = "name";
                 attributes[3] = "email";
