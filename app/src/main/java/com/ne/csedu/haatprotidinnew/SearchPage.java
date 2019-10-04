@@ -52,7 +52,7 @@ public class SearchPage extends AppCompatActivity {
 
         //hortag start
         htRecyclerView = findViewById(R.id.hor_tag_recycler_view);
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         htRecyclerView.setLayoutManager(layoutManager);
 
         htAdapter = new HorTagRecyclerViewAdapter(currentFilters,this);
@@ -100,7 +100,8 @@ public class SearchPage extends AppCompatActivity {
         System.out.println(currentFilters.size()+"saddasdasds\n\n\n");
         if(currentFilters.size()>0)
         {
-            System.out.println(currentFilters.get(0));
+            for(int ind=0;ind<currentFilters.size();ind++)
+            System.out.println(currentFilters.get(ind));
         }
         Collections.sort(currentFilters);
 
@@ -142,13 +143,6 @@ public class SearchPage extends AppCompatActivity {
         locationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Applying the adapter to our spinner
         editlocation.setAdapter(locationAdapter);
-        final Intent intent = new Intent(SearchPage.this,SearchPage.class);
-
-
-        intent.putExtra("currentFilters",currentFilters);
-        intent.putExtra("location",locationOptions);
-        intent.putExtra("color",colorOptions);
-        intent.putExtra("category",categoryOptions);
 
         editlocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -159,14 +153,8 @@ public class SearchPage extends AppCompatActivity {
                 else {
                     System.out.println(parent.getItemAtPosition(position));
                     Toast.makeText(SearchPage.this, locationOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
-                    currentFilters.add("a");
-                    intent.putExtra("currentFilters",currentFilters);
-                    intent.putExtra("location",locationOptions);
-                    intent.putExtra("color",colorOptions);
-                    intent.putExtra("category",categoryOptions);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    startActivity(intent);
+                    currentFilters.add(locationOptions.get(position));
+                    htAdapter.update(currentFilters);
                 }
                 System.out.println(position);
             }
@@ -194,13 +182,7 @@ public class SearchPage extends AppCompatActivity {
                 else {
                     Toast.makeText(SearchPage.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
                     currentFilters.add(categoryOptions.get(position));
-                    intent.putExtra("currentFilters",currentFilters);
-                    intent.putExtra("location",locationOptions);
-                    intent.putExtra("color",colorOptions);
-                    intent.putExtra("category",categoryOptions);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    startActivity(intent);
+                    htAdapter.update(currentFilters);
                 }
             }
 
@@ -228,13 +210,7 @@ public class SearchPage extends AppCompatActivity {
                     Toast.makeText(SearchPage.this, colorOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
 
                     currentFilters.add(colorOptions.get(position));
-                    intent.putExtra("currentFilters",currentFilters);
-                    intent.putExtra("location",locationOptions);
-                    intent.putExtra("color",colorOptions);
-                    intent.putExtra("category",categoryOptions);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                    startActivity(intent);
+                    htAdapter.update(currentFilters);
                 }
             }
 
@@ -243,6 +219,9 @@ public class SearchPage extends AppCompatActivity {
 
             }
         });
+
+
+        //Hortag
 
 
 

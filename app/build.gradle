@@ -34,5 +34,5 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.google.firebase:firebase-storage:16.0.5'
-    implementation 'com.github.apg-mobile:android-round-textview:v1.0.0'
+    implementation "com.github.apg-mobile:android-round-textview:v1.0.0"
 }

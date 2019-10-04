@@ -9,9 +9,9 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.apg.mobile.roundtextview.BadgeView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HorTagRecyclerViewAdapter extends RecyclerView.Adapter<HorTagRecyclerViewAdapter.ViewHolder>{
@@ -22,6 +22,15 @@ public class HorTagRecyclerViewAdapter extends RecyclerView.Adapter<HorTagRecycl
     public HorTagRecyclerViewAdapter(ArrayList<String> currentFilters, Context context) {
         this.currentFilters = currentFilters;
         this.context = context;
+        this.update(currentFilters);
+
+    }
+
+    public void update(ArrayList<String> data) {
+        currentFilters = data;
+
+        notifyDataSetChanged();
+
     }
 
     @NonNull
@@ -33,19 +42,24 @@ public class HorTagRecyclerViewAdapter extends RecyclerView.Adapter<HorTagRecycl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder,final  int i) {
 
         viewHolder.tag.setBadgeMainText(currentFilters.get(i));
-
+        System.out.println(i+" iiiiiii");
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentFilters.remove(i);
 
-                Intent intent = new Intent(context,SearchPage.class);
-                intent.putExtra("currentFilters",currentFilters);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
+                try {
+                    int pos = viewHolder.getLayoutPosition();
+                    currentFilters.remove(pos);
+                    notifyItemRemoved(pos);
+                    //notifyItemRangeChanged(i, getItemCount()-i);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
