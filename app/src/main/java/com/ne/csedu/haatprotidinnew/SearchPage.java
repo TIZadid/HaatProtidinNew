@@ -80,6 +80,7 @@ public class SearchPage extends AppCompatActivity {
         temp = fromHomeintent.getStringArrayListExtra("color");
         colorOptions.addAll(temp);
         System.out.println("khela " + locationOptions.size() + " " + categoryOptions.size()+ " " +colorOptions.size());
+        System.out.println(currentFilters.size());
 
         editlocation.setVisibility(View.GONE);
         locationLabel.setVisibility(View.GONE);
@@ -96,6 +97,11 @@ public class SearchPage extends AppCompatActivity {
 
         currentFilters = getIntent().getStringArrayListExtra("currentFilters");
         if(currentFilters == null) currentFilters = new ArrayList<>();
+        System.out.println(currentFilters.size()+"saddasdasds\n\n\n");
+        if(currentFilters.size()>0)
+        {
+            System.out.println(currentFilters.get(0));
+        }
         Collections.sort(currentFilters);
 
         Filterbutton.setOnClickListener(new View.OnClickListener() {
@@ -151,8 +157,9 @@ public class SearchPage extends AppCompatActivity {
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
+                    System.out.println(parent.getItemAtPosition(position));
                     Toast.makeText(SearchPage.this, locationOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
-                    currentFilters.add(locationOptions.get(position));
+                    currentFilters.add("a");
                     intent.putExtra("currentFilters",currentFilters);
                     intent.putExtra("location",locationOptions);
                     intent.putExtra("color",colorOptions);
@@ -219,6 +226,7 @@ public class SearchPage extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(SearchPage.this, colorOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+
                     currentFilters.add(colorOptions.get(position));
                     intent.putExtra("currentFilters",currentFilters);
                     intent.putExtra("location",locationOptions);
