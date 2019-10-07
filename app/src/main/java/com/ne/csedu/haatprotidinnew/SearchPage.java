@@ -3,11 +3,13 @@ package com.ne.csedu.haatprotidinnew;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -27,6 +29,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SearchPage extends AppCompatActivity {
+    private static final String TAG = "SearchPage";
+    private  static  final int NUM_COLUMNS=2;
+
+    private ArrayList<String> mNames=new ArrayList<>();
+    private ArrayList<String> mPrice=new ArrayList<>();
+
     ArrayList<String> locationOptions = new ArrayList<String>() {};
 
     ArrayList<String> categoryOptions = new ArrayList<String>() {};
@@ -222,8 +230,54 @@ public class SearchPage extends AppCompatActivity {
 
 
         //Hortag
+initStaggeredCard();
+
+    }
+    private void initStaggeredCard(){
+        Log.d(TAG, "initStagg: preparing.");
 
 
+        mNames.add("Havasu Falls");
+        mPrice.add("TK. 2000");
 
+        mNames.add("Trondheim");
+        mPrice.add("TK. 2000");
+
+        mNames.add("Portugal");
+        mPrice.add("TK. 2000");
+
+        mPrice.add("TK. 2000");
+        mNames.add("Rocky Mountain National Park");
+
+
+        mPrice.add("TK. 2000");
+        mNames.add("Mahahual");
+
+        mPrice.add("TK. 2000");
+        mNames.add("Frozen Lake");
+
+
+        mPrice.add("TK. 2000");
+        mNames.add("White Sands Desert");
+
+        mPrice.add("TK. 2000");
+        mNames.add("Austrailia");
+
+        mPrice.add("TK. 2000");
+        mNames.add("Washington");
+
+        initRecyclerView();
+
+    }
+
+    private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: initializing staggered recyclerview.");
+
+        RecyclerView recyclerView = findViewById(R.id.pref_Recycler);
+        StaggeredAdapter staggeredRecyclerViewAdapter =
+                new StaggeredAdapter(mNames, mPrice,this);
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(NUM_COLUMNS, LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        recyclerView.setAdapter(staggeredRecyclerViewAdapter);
     }
 }
