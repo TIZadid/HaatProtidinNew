@@ -14,41 +14,16 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="15dp"
         android:gravity="center"
-        android:text="Search Whole Sell Products"
+        android:text="WholeSell Search "
         android:textAllCaps="true"
         android:textColor="#cc3300"
-        android:textSize="26sp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/QA_top_place"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Selected Tags: "
-            android:textColor="#808080"
-            android:textStyle="bold"
-            android:textSize="20dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/hor_tag_recycler_view">
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </LinearLayout>
 
 
     <LinearLayout
@@ -77,6 +52,32 @@
             android:background="#cc3300"
             android:text="Search"
             android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/QA_top_place"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Selected Tags: "
+            android:textColor="#808080"
+            android:layout_marginBottom="10dp"
+            android:textSize="15dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/hor_tag_recycler_view">
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
     <Switch

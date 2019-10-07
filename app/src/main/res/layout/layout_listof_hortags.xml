@@ -6,18 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/resource_element_layout_hor_tag"
     android:orientation="vertical"
-    android:layout_margin="4dp">
+    android:layout_margin="2dp">
 
     <com.apg.mobile.roundtextview.BadgeView
         android:id="@+id/hor_tag_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:mainTextSize="5dp"
         app:mainAllCorner="15dp"
-        app:mainBgColor="@color/hpcolor"
+        app:mainBgColor="#FFB4A9"
         app:mainText="abc"
-        app:mainTextSize="8dp"
-        app:subAllCorner="30dp"
-        app:subTextSize="8dp"
+
+        app:subAllCorner="20dp"
+        app:subTextSize="3dp"
         app:subText=" X ">
     </com.apg.mobile.roundtextview.BadgeView>
 

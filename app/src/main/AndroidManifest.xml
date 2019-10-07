@@ -14,14 +14,15 @@
         <activity android:name=".Agentsearch" />
         <activity android:name=".SearchPage" >
     </activity>
-        <activity android:name=".HomePage" />
-        <activity android:name=".Register" />
-        <activity android:name=".LoginPage">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".HomePage" >  <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+    </activity>
+
+    <activity android:name=".Register" />
+        <activity android:name=".LoginPage">
         </activity>
 
 
