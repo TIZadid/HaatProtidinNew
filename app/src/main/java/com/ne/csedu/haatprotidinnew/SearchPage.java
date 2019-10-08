@@ -224,6 +224,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                         Toast.makeText(SearchPage.this, locationOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
                         currentFilters.add(locationOptions.get(position));
                         htAdapter.update(currentFilters);
+                        parent.setSelection(0);
                     }
 
                 }
@@ -258,6 +259,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                         Toast.makeText(SearchPage.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
                         currentFilters.add(categoryOptions.get(position));
                         htAdapter.update(currentFilters);
+                        parent.setSelection(0);
                     }
                 }
                 System.out.println(currentFilters);
@@ -291,6 +293,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                         Toast.makeText(SearchPage.this, colorOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
                         currentFilters.add(colorOptions.get(position));
                         htAdapter.update(currentFilters);
+                        parent.setSelection(0);
                     }
                 }
                 System.out.println(currentFilters);
