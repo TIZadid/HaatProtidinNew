@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
 public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.ViewHolder> {
@@ -43,6 +46,14 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.ic_launcher_background);
+
+        Glide.with(mContext)
+                .load(mImageURL.get(position))
+                .apply(requestOptions)
+                .into(holder.productImage);
         holder.productName.setText(mNames.get(position));
         holder.productPrice.setText(mPrice.get(position));
 
