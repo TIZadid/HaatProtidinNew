@@ -22,11 +22,14 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
 
     private ArrayList<String> mNames=new ArrayList<>();
     private ArrayList<String> mPrice=new ArrayList<>();
+    private ArrayList<String> mID = new ArrayList<>();
     private Context mContext;
 
-    public StaggeredAdapter(ArrayList<String> mNames, ArrayList<String> mPrice, Context mContext) {
+    public StaggeredAdapter(ArrayList<String> mNames, ArrayList<String> mPrice, ArrayList<String> mImageURL, ArrayList<String> mID, Context mContext) {
         this.mNames = mNames;
         this.mPrice = mPrice;
+        this.mImageURL = mImageURL;
+        this.mID = mID;
         this.mContext = mContext;
     }
 
@@ -42,6 +45,7 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
         Log.d(TAG, "onBindViewHolder: called.");
         holder.productName.setText(mNames.get(position));
         holder.productPrice.setText(mPrice.get(position));
+
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

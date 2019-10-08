@@ -25,15 +25,22 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
-public class SearchPage extends AppCompatActivity {
+public class SearchPage extends AppCompatActivity implements AsyncResponse{
     private static final String TAG = "SearchPage";
     private  static  final int NUM_COLUMNS=2;
 
     private ArrayList<String> mNames=new ArrayList<>();
     private ArrayList<String> mPrice=new ArrayList<>();
+    private ArrayList<String> mImageURL = new ArrayList<>();
+    private ArrayList<String> mID = new ArrayList<>();
 
     ArrayList<String> locationOptions = new ArrayList<String>() {};
 
@@ -43,6 +50,8 @@ public class SearchPage extends AppCompatActivity {
 
     int count;
     int index,userIndex;
+
+    Context context;
 
 
     ArrayList<String> currentFilters = new ArrayList<>();
@@ -56,7 +65,7 @@ public class SearchPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
 
-
+        context = this;
 
         //hortag start
         htRecyclerView = findViewById(R.id.hor_tag_recycler_view);
@@ -76,6 +85,7 @@ public class SearchPage extends AppCompatActivity {
         final TextView typeLabel = findViewById(R.id.tvtype);
         final Spinner editcolor = findViewById(R.id.etcolor);
         final TextView colorLabel = findViewById(R.id.tvcolor);
+        final Button btnSearch = findViewById(R.id.btnSearch);
 
         Intent fromHomeintent = getIntent();
         ArrayList<String> temp = new ArrayList<>();
@@ -145,6 +155,54 @@ public class SearchPage extends AppCompatActivity {
             }
         });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("aste " + currentFilters);
+                int locationIndex = 0;
+                int colorIndex = 0;
+                int categoryIndex = 0;
+                String[] attributes = new String[currentFilters.size()+2];
+                String[] values = new String[currentFilters.size()+2];
+
+                //pass pass e ante hobe, egula temp
+                attributes[0] = "phone_no";
+                values[0] = "123";
+                attributes[1] = "dokan_type";
+                values[1] = "Retailer";
+
+
+                for(int i=0; i<currentFilters.size(); i++){
+                    if(locationOptions.contains(currentFilters.get(i))){
+                        attributes[i+2] = "location"+locationIndex;
+                        values[i+2] = currentFilters.get(i);
+                        locationIndex = locationIndex + 1;
+                    }
+                    if(colorOptions.contains(currentFilters.get(i))){
+                        attributes[i+2] = "color"+colorIndex;
+                        values[i+2] = currentFilters.get(i);
+                        colorIndex = colorIndex + 1;
+                    }
+                    if(categoryOptions.contains(currentFilters.get(i))){
+                        attributes[i+2] = "category"+categoryIndex;
+                        values[i+2] = currentFilters.get(i);
+                        categoryIndex = categoryIndex + 1;
+                    }
+                }
+                for(int j=0; j<currentFilters.size()+2;j++){
+                    System.out.println("aguuun" + attributes[j] + " " + values[j]);
+                }
+                GetMethodHandler productRetriever = new GetMethodHandler(attributes, values, currentFilters.size() +2, "https://haatprotidin.com/php_an/filter.php", context);
+                try {
+                    productRetriever.execute().get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         //LOCATION ER JONNO EKHAN THEKE ADAPTER BANANO SHURU
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,locationOptions);
         // Specify layout to be used when list of choices appears
@@ -156,15 +214,20 @@ public class SearchPage extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(parent.getItemAtPosition(position).equals("select a category")){
-                    System.out.println("mammmmaaa mojaaaaa");
+                    System.out.println("ami retarded");
                 }
                 else {
-                    System.out.println(parent.getItemAtPosition(position));
-                    Toast.makeText(SearchPage.this, locationOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
-                    currentFilters.add(locationOptions.get(position));
-                    htAdapter.update(currentFilters);
+                    if(currentFilters.contains(parent.getItemAtPosition(position))){
+                        Toast.makeText(SearchPage.this, locationOptions.get(position) + " Already Selected", Toast.LENGTH_SHORT).show();
+                    }else{
+                        System.out.println(parent.getItemAtPosition(position));
+                        Toast.makeText(SearchPage.this, locationOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+                        currentFilters.add(locationOptions.get(position));
+                        htAdapter.update(currentFilters);
+                    }
+
                 }
-                System.out.println(position);
+                System.out.println(currentFilters);
             }
 
             @Override
@@ -188,10 +251,16 @@ public class SearchPage extends AppCompatActivity {
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
-                    Toast.makeText(SearchPage.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
-                    currentFilters.add(categoryOptions.get(position));
-                    htAdapter.update(currentFilters);
+                    if(currentFilters.contains(parent.getItemAtPosition(position))){
+                        Toast.makeText(SearchPage.this, categoryOptions.get(position) + " Already Selected", Toast.LENGTH_SHORT).show();
+                    }else{
+                        System.out.println(parent.getItemAtPosition(position));
+                        Toast.makeText(SearchPage.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+                        currentFilters.add(categoryOptions.get(position));
+                        htAdapter.update(currentFilters);
+                    }
                 }
+                System.out.println(currentFilters);
             }
 
             @Override
@@ -215,11 +284,16 @@ public class SearchPage extends AppCompatActivity {
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
-                    Toast.makeText(SearchPage.this, colorOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
-
-                    currentFilters.add(colorOptions.get(position));
-                    htAdapter.update(currentFilters);
+                    if(currentFilters.contains(parent.getItemAtPosition(position))){
+                        Toast.makeText(SearchPage.this, colorOptions.get(position) + " Already Selected", Toast.LENGTH_SHORT).show();
+                    }else{
+                        System.out.println(parent.getItemAtPosition(position));
+                        Toast.makeText(SearchPage.this, colorOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
+                        currentFilters.add(colorOptions.get(position));
+                        htAdapter.update(currentFilters);
+                    }
                 }
+                System.out.println(currentFilters);
             }
 
             @Override
@@ -228,56 +302,47 @@ public class SearchPage extends AppCompatActivity {
             }
         });
 
-
-        //Hortag
-initStaggeredCard();
-
     }
-    private void initStaggeredCard(){
-        Log.d(TAG, "initStagg: preparing.");
 
-
-        mNames.add("Havasu Falls");
-        mPrice.add("TK. 2000");
-
-        mNames.add("Trondheim");
-        mPrice.add("TK. 2000");
-
-        mNames.add("Portugal");
-        mPrice.add("TK. 2000");
-
-        mPrice.add("TK. 2000");
-        mNames.add("Rocky Mountain National Park");
-
-
-        mPrice.add("TK. 2000");
-        mNames.add("Mahahual");
-
-        mPrice.add("TK. 2000");
-        mNames.add("Frozen Lake");
-
-
-        mPrice.add("TK. 2000");
-        mNames.add("White Sands Desert");
-
-        mPrice.add("TK. 2000");
-        mNames.add("Austrailia");
-
-        mPrice.add("TK. 2000");
-        mNames.add("Washington");
-
-        initRecyclerView();
-
-    }
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: initializing staggered recyclerview.");
 
         RecyclerView recyclerView = findViewById(R.id.pref_Recycler);
         StaggeredAdapter staggeredRecyclerViewAdapter =
-                new StaggeredAdapter(mNames, mPrice,this);
+                new StaggeredAdapter(mNames, mPrice, mImageURL, mID,this);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(NUM_COLUMNS, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(staggeredRecyclerViewAdapter);
+    }
+
+    @Override
+    public void processFinish(String output) {
+        try {
+            mID.clear();
+            mPrice.clear();
+            mNames.clear();
+            mImageURL.clear();
+            JSONArray jsonArray= new JSONArray(output);
+
+            int jsonlength = jsonArray.length();
+            JSONObject checker = jsonArray.getJSONObject(0);
+            if(checker.get("status").toString().equals("-1")){
+                Toast.makeText(SearchPage.this, "Search Failed, Please try again.", Toast.LENGTH_SHORT).show();
+            }else if (jsonlength == 1){
+                Toast.makeText(SearchPage.this, "No such product!", Toast.LENGTH_SHORT).show();
+            }else{
+                for(int i=1; i<jsonlength; i++){
+                    JSONObject temp = jsonArray.getJSONObject(i);
+                    mID.add(temp.get("id").toString());
+                    mImageURL.add(temp.get("photo_link").toString());
+                    mNames.add(temp.get("name").toString());
+                    mPrice.add(temp.get("price").toString());
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        initRecyclerView();
     }
 }
