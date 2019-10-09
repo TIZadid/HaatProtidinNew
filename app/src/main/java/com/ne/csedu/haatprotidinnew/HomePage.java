@@ -24,11 +24,15 @@ public class HomePage extends Activity implements AsyncResponse{
     ArrayList<String> locationTagList =  new ArrayList<String>();
     ArrayList<String> colorTagLIst =  new ArrayList<String>();
     ArrayList<String> categoryTagList =  new ArrayList<String>();
+
+    private Intent fromHomeIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+        fromHomeIntent = getIntent();
 
         String URL= "http://haatprotidin.com/php_an/sendTags.php";
         context = this;
@@ -52,7 +56,8 @@ public class HomePage extends Activity implements AsyncResponse{
                 intent.putExtra("location", locationTagList);
                 intent.putExtra("color",colorTagLIst);
                 intent.putExtra("category",categoryTagList);
-                intent.putExtra("type","wholeseller");
+                intent.putExtra("dokan_type","Wholeseller");
+                intent.putExtra("phone_no",fromHomeIntent.getStringExtra("phone_no"));
 
                 startActivity(intent);
             }
@@ -64,7 +69,8 @@ public class HomePage extends Activity implements AsyncResponse{
                 intent.putExtra("location", locationTagList);
                 intent.putExtra("color",colorTagLIst);
                 intent.putExtra("category",categoryTagList);
-                intent.putExtra("type","retailer");
+                intent.putExtra("dokan_type","Retailer");
+                intent.putExtra("phone_no",fromHomeIntent.getStringExtra("phone_no"));
 
                 startActivity(intent);
             }

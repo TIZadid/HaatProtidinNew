@@ -87,7 +87,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         final TextView colorLabel = findViewById(R.id.tvcolor);
         final Button btnSearch = findViewById(R.id.btnSearch);
 
-        Intent fromHomeintent = getIntent();
+        final Intent fromHomeintent = getIntent();
         ArrayList<String> temp = new ArrayList<>();
         temp =fromHomeintent.getStringArrayListExtra("location");
         locationOptions.addAll(temp);
@@ -165,11 +165,12 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                 String[] attributes = new String[currentFilters.size()+2];
                 String[] values = new String[currentFilters.size()+2];
 
-                //pass pass e ante hobe, egula temp
                 attributes[0] = "phone_no";
+                //values[0] = fromHomeintent.getStringExtra("phone_no");
                 values[0] = "123";
                 attributes[1] = "dokan_type";
-                values[1] = "Retailer";
+                values[1] = fromHomeintent.getStringExtra("dokan_type");
+
 
 
                 for(int i=0; i<currentFilters.size(); i++){

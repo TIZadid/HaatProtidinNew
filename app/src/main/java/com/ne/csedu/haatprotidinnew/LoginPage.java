@@ -77,6 +77,7 @@ public class LoginPage extends Activity implements AsyncResponse{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginPage.this, Register.class);
+                intent.putExtra("phone_no",editUserID.getText().toString());
                 startActivity(intent);
             }
         });
