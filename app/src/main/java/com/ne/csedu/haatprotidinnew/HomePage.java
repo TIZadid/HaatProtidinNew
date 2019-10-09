@@ -91,8 +91,8 @@ public class HomePage extends Activity implements AsyncResponse{
         try {
             JSONArray jsonArray= new JSONArray(output);
             //System.out.println(jsonArray.toString());
-            locationTagList.add(0,"select a category");
-            colorTagLIst.add(0,"select a category");
+            locationTagList.add(0,"select a location");
+            colorTagLIst.add(0,"select a color");
             categoryTagList.add(0,"select a category");
             int j=0,k=0,l=0;
             int jsonlength = jsonArray.length();

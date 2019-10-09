@@ -80,11 +80,11 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
 
         Switch Filterbutton =  findViewById(R.id.Filter);
         final Spinner editlocation = findViewById(R.id.etlocation);
-        final TextView locationLabel =findViewById(R.id.tvlocation);
+
         final Spinner edittype = findViewById(R.id.ettype);
-        final TextView typeLabel = findViewById(R.id.tvtype);
+
         final Spinner editcolor = findViewById(R.id.etcolor);
-        final TextView colorLabel = findViewById(R.id.tvcolor);
+
         final Button btnSearch = findViewById(R.id.btnSearch);
 
         final Intent fromHomeintent = getIntent();
@@ -101,13 +101,10 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         System.out.println(currentFilters.size());
 
         editlocation.setVisibility(View.GONE);
-        locationLabel.setVisibility(View.GONE);
 
         edittype.setVisibility(View.GONE);
-        typeLabel.setVisibility(View.GONE);
 
         editcolor.setVisibility(View.GONE);
-        colorLabel.setVisibility(View.GONE);
 
 
 
@@ -129,26 +126,20 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                 Switch radioButton = (Switch) view;
                 if (radioButton.isChecked()) {
                         editlocation.setVisibility(View.VISIBLE);
-                        locationLabel.setVisibility(View.VISIBLE);
 
                         edittype.setVisibility(View.VISIBLE);
-                        typeLabel.setVisibility(View.VISIBLE);
 
                         editcolor.setVisibility(View.VISIBLE);
-                        colorLabel.setVisibility(View.VISIBLE);
 
                         count=1;
                 }
                 else if(!radioButton.isChecked()){
                     radioButton.setChecked(false);
                     editlocation.setVisibility(View.GONE);
-                    locationLabel.setVisibility(View.GONE);
 
                     edittype.setVisibility(View.GONE);
-                    typeLabel.setVisibility(View.GONE);
 
                     editcolor.setVisibility(View.GONE);
-                    colorLabel.setVisibility(View.GONE);
 
                     count =0;
                 }
@@ -214,7 +205,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         editlocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("select a category")){
+                if(parent.getItemAtPosition(position).equals("select a location")){
                     System.out.println("ami retarded");
                 }
                 else {
@@ -283,7 +274,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         editcolor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("select a category")){
+                if(parent.getItemAtPosition(position).equals("select a color")){
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
