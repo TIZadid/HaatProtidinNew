@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         app:mainTextSize="5dp"
         app:mainAllCorner="15dp"
-        app:mainBgColor="#FFB4A9"
+        app:mainBgColor="@color/colorAccent"
         app:mainText="abc"
 
         app:subAllCorner="20dp"
