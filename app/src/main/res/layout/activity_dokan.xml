@@ -10,6 +10,7 @@
     android:padding="20dp"
     tools:context=".Dokan">
 
+
     <TextView
         android:id="@+id/dokanName"
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
         android:textAllCaps="true"
         android:textColor="#cc3300"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
+
     <TextView
         android:id="@+id/dokanAddress"
         android:layout_width="match_parent"
@@ -35,9 +37,19 @@
         android:id="@+id/dokanContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
         android:gravity="center"
         android:text="Contact Number"
+        android:textAllCaps="true"
+        android:textColor="#cc3300"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/dokanType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="Type"
         android:textAllCaps="true"
         android:textColor="#cc3300"
         android:textSize="15sp"
