@@ -15,12 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.ViewHolder> implements Asynchresponsev2{
+public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.ViewHolder> {
 
     private static final String TAG = "StaggeredAdapter";
     private ArrayList<String> mImageURL=new ArrayList<>();
@@ -56,12 +58,17 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
         String imageurl = mImageURL.get(position);
         System.out.println(imageurl);
 
-        try{
+       /* try{
             Imagehandler imageload = new Imagehandler(mContext,imageurl);
             imageload.execute().get();
         }catch (Exception e){
             System.out.println("problem Problem problem");
-        }
+        }*/
+        Glide.with(mContext)
+                .load(imageurl)
+                .apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.productImage);
 
         holder.productName.setText(mNames.get(position));
         holder.productPrice.setText(mPrice.get(position));
@@ -83,10 +90,10 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
         return mNames.size();
     }
 
-    @Override
+/*    @Override
     public void processFinish(Bitmap output) {
             bitmap = output;
-    }
+    }*/
 
     public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView productImage;
