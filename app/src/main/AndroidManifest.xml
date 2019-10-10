@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Dokan"></activity>
         <activity android:name=".Profile" />
+        <activity android:name=".ProductPage"></activity>
         <activity android:name=".Adddokan" />
         <activity android:name=".Agentsearch" />
         <activity android:name=".SearchPage"></activity>
