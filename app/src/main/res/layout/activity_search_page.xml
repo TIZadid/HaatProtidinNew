@@ -14,13 +14,14 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+
         android:gravity="center"
         android:text="WholeSell Search "
-        android:textAllCaps="true"
         android:textColor="#cc3300"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_marginBottom="15dp"
+        android:textAllCaps="true" />
 
 
 
