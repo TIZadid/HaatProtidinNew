@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ne.csedu.haatprotidinnew">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Dokan"></activity>
+        <activity android:name=".Testing"></activity>
+        <activity android:name=".Dokan" />
         <activity android:name=".Profile" />
-        <activity android:name=".ProductPage"></activity>
+        <activity android:name=".ProductPage" />
         <activity android:name=".Adddokan" />
         <activity android:name=".Agentsearch" />
-        <activity android:name=".SearchPage"></activity>
+        <activity android:name=".SearchPage" />
         <activity android:name=".HomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
-        <activity android:name=".LoginPage"></activity>
+        <activity android:name=".LoginPage" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

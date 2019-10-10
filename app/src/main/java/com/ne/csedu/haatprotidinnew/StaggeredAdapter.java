@@ -1,6 +1,8 @@
 package com.ne.csedu.haatprotidinnew;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.ViewHolder> {
+public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.ViewHolder> implements Asynchresponsev2{
 
     private static final String TAG = "StaggeredAdapter";
     private ArrayList<String> mImageURL=new ArrayList<>();
@@ -27,6 +29,8 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
     private ArrayList<String> mPrice=new ArrayList<>();
     private ArrayList<String> mID = new ArrayList<>();
     private Context mContext;
+    Bitmap bitmap;
+   // private Context staggeredcontext;
 
     public StaggeredAdapter(ArrayList<String> mNames, ArrayList<String> mPrice, ArrayList<String> mImageURL, ArrayList<String> mID, Context mContext) {
         this.mNames = mNames;
@@ -49,11 +53,16 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
 
         RequestOptions requestOptions = new RequestOptions()
                 .placeholder(R.drawable.ic_launcher_background);
+        String imageurl = mImageURL.get(position);
+        System.out.println(imageurl);
 
-        Glide.with(mContext)
-                .load(mImageURL.get(position))
-                .apply(requestOptions)
-                .into(holder.productImage);
+        try{
+            Imagehandler imageload = new Imagehandler(mContext,imageurl);
+            imageload.execute().get();
+        }catch (Exception e){
+            System.out.println("problem Problem problem");
+        }
+
         holder.productName.setText(mNames.get(position));
         holder.productPrice.setText(mPrice.get(position));
 
@@ -62,6 +71,8 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
             public void onClick(View view) {
                 Log.d(TAG, "onClick: on : " + mNames.get(position) );
                 Toast.makeText(mContext,mNames.get(position),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext,ProductPage.class);
+                mContext.startActivity(intent);
             }
         });
 
@@ -72,7 +83,12 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
         return mNames.size();
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public void processFinish(Bitmap output) {
+            bitmap = output;
+    }
+
+    public  class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView productImage;
         TextView productName;
         TextView productPrice;
@@ -85,6 +101,11 @@ public class StaggeredAdapter extends  RecyclerView.Adapter<StaggeredAdapter.Vie
             this.productName=itemView.findViewById(R.id.productName);
             this.productPrice=itemView.findViewById(R.id.productPrice);
             this.card=itemView.findViewById(R.id.card);
+
+        }
+
+        @Override
+        public void onClick(View view) {
 
         }
     }

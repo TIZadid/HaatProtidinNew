@@ -41,7 +41,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
     private ArrayList<String> mPrice=new ArrayList<>();
     private ArrayList<String> mImageURL = new ArrayList<>();
     private ArrayList<String> mID = new ArrayList<>();
-
+    String Check;
     ArrayList<String> locationOptions = new ArrayList<String>() {};
 
     ArrayList<String> categoryOptions = new ArrayList<String>() {};
@@ -59,12 +59,17 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
     private RecyclerView htRecyclerView;
     private HorTagRecyclerViewAdapter htAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    RecyclerView recyclerView;
+    StaggeredAdapter staggeredRecyclerViewAdapter;
+    StaggeredGridLayoutManager staggeredGridLayoutManager;
+    String[] attributes;
+    String[] values;
+    String Dokantype,DokanPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
-
         context = this;
 
         //hortag start
@@ -88,6 +93,28 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         final Button btnSearch = findViewById(R.id.btnSearch);
 
         final Intent fromHomeintent = getIntent();
+
+        attributes = new String[5000];
+        values = new String[5000];
+
+        Dokantype = fromHomeintent.getStringExtra("dokan_type");
+        DokanPhone = fromHomeintent.getStringExtra("phone_no");
+
+        attributes[0] = "phone_no";
+        attributes[1] = "dokan_type";
+
+        values[0] = DokanPhone;
+        values[1] = Dokantype;
+
+        GetMethodHandler emptySearch = new GetMethodHandler(attributes,values,2,"https://haatprotidin.com/php_an/filter.php",context);
+        try {
+            emptySearch.execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         ArrayList<String> temp = new ArrayList<>();
         temp =fromHomeintent.getStringArrayListExtra("location");
         locationOptions.addAll(temp);
@@ -153,8 +180,6 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                 int locationIndex = 0;
                 int colorIndex = 0;
                 int categoryIndex = 0;
-                String[] attributes = new String[currentFilters.size()+2];
-                String[] values = new String[currentFilters.size()+2];
 
                 attributes[0] = "phone_no";
                 //values[0] = fromHomeintent.getStringExtra("phone_no");
@@ -194,7 +219,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                 }
             }
         });
-
+        initRecyclerView();
         //LOCATION ER JONNO EKHAN THEKE ADAPTER BANANO SHURU
         ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,locationOptions);
         // Specify layout to be used when list of choices appears
@@ -303,8 +328,8 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView: initializing staggered recyclerview.");
 
-        RecyclerView recyclerView = findViewById(R.id.pref_Recycler);
-        StaggeredAdapter staggeredRecyclerViewAdapter =
+         recyclerView = findViewById(R.id.pref_Recycler);
+        staggeredRecyclerViewAdapter =
                 new StaggeredAdapter(mNames, mPrice, mImageURL, mID,this);
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(NUM_COLUMNS, LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -335,9 +360,16 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
                     mPrice.add(temp.get("price").toString());
                 }
             }
+            System.out.println(mImageURL);
+            for(int ind=0;ind<mImageURL.size();ind++)
+                System.out.println(mImageURL.get(ind));
+            System.out.println("sesh");
+            staggeredRecyclerViewAdapter.notifyDataSetChanged();
+            System.out.println("sesh");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        initRecyclerView();
+
+
     }
 }
