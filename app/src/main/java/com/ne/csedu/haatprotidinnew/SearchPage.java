@@ -230,7 +230,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         editlocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("select a location")){
+                if(parent.getItemAtPosition(position).equals("Location")){
                     System.out.println("ami retarded");
                 }
                 else {
@@ -265,7 +265,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         edittype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("select a category")){
+                if(parent.getItemAtPosition(position).equals("Category")){
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
@@ -299,7 +299,7 @@ public class SearchPage extends AppCompatActivity implements AsyncResponse{
         editcolor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("select a color")){
+                if(parent.getItemAtPosition(position).equals("Color")){
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
