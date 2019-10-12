@@ -20,6 +20,7 @@ public class HomePage extends Activity implements AsyncResponse{
     Context context;
     Button btnWholeseller,btnRetailer,btnagentsearch;
     String result;
+    Button btnDokansearch, btnProfile;
 
     ArrayList<String> locationTagList =  new ArrayList<String>();
     ArrayList<String> colorTagLIst =  new ArrayList<String>();
@@ -39,8 +40,11 @@ public class HomePage extends Activity implements AsyncResponse{
         btnWholeseller=(Button)findViewById(R.id.btnWholeseller);
         btnRetailer=(Button)findViewById(R.id.btnRetailer);
         btnagentsearch = findViewById(R.id.btnAgentSearch);
+        btnDokansearch = findViewById(R.id.btnDokanSearch);
+        btnProfile = findViewById(R.id.btnProfile);
         String attributes[]={};
         String values[]={};
+
         GetMethodHandler request = new GetMethodHandler(attributes,values,0,"https://haatprotidin.com/php_an/sendTags.php",context);
         try {
             request.execute().get();
@@ -59,7 +63,17 @@ public class HomePage extends Activity implements AsyncResponse{
                 intent.putExtra("dokan_type","Wholeseller");
                 intent.putExtra("phone_no",fromHomeIntent.getStringExtra("phone_no"));
 
+
                 startActivity(intent);
+            }
+        });
+        btnDokansearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePage.this, DokanSearh.class);
+                intent.putExtra("category",categoryTagList);
+                startActivity(intent);
+
             }
         });
         btnRetailer.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +94,16 @@ public class HomePage extends Activity implements AsyncResponse{
             public void onClick(View view) {
                 Intent intent = new Intent(HomePage.this,Agentsearch.class);
                 intent.putExtra("location",locationTagList);
+                startActivity(intent);
+            }
+        });
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePage.this,Profile.class);
+                intent.putExtra("dokan_type","Retailer");
+                intent.putExtra("phone_no",fromHomeIntent.getStringExtra("phone_no"));
+                System.out.println(fromHomeIntent.getStringExtra("phone_no"));
                 startActivity(intent);
             }
         });
