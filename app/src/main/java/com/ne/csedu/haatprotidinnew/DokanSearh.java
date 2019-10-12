@@ -13,9 +13,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 public class DokanSearh extends AppCompatActivity implements AsyncResponse{
     TextView textSearch;
+    ListView listDokan;
 
     private RecyclerView htRecyclerView;
     private HorTagRecyclerViewAdapter htAdapter;
@@ -33,6 +38,7 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
     Context context;
     ArrayList<String> currentFilters = new ArrayList<>();
     ArrayList<String> categoryOptions = new ArrayList<String>();
+    ArrayList<Dokaninfo> dokaninfos = new ArrayList<Dokaninfo>();
     Spinner edittype;
     Button SearchDokan;
     @Override
@@ -47,12 +53,15 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
         layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
         htRecyclerView.setLayoutManager(layoutManager);
         SearchDokan =findViewById(R.id.btDokanSearch);
-        textSearch = findViewById(R.id.etSearchtext);
+        htAdapter = new HorTagRecyclerViewAdapter(currentFilters,this);
+        htRecyclerView.setAdapter(htAdapter);
+        textSearch = findViewById(R.id.etSearchDokan);
 
         htAdapter = new HorTagRecyclerViewAdapter(currentFilters,this);
         htRecyclerView.setAdapter(htAdapter);
 
         edittype = findViewById(R.id.ettype_v2);
+        listDokan = findViewById(R.id.listdokan);
 
         Intent fromhomeintent = getIntent();
 
@@ -80,10 +89,11 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
         // Applying the adapter to our spinner
         edittype.setAdapter(typeAdapter);
 
+
         edittype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("Category")){
+                if(parent.getItemAtPosition(position).equals("select a option")){
                     System.out.println("mammmmaaa mojaaaaa");
                 }
                 else {
@@ -91,6 +101,7 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
                         Toast.makeText(DokanSearh.this, categoryOptions.get(position) + " Already Selected", Toast.LENGTH_SHORT).show();
                     }else{
                         System.out.println(parent.getItemAtPosition(position));
+                        currentFilters.clear();
                         Toast.makeText(DokanSearh.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
                         currentFilters.add(categoryOptions.get(position));
                         htAdapter.update(currentFilters);
@@ -118,15 +129,15 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
                 if(textSearch.getText().toString().equals(""))values[0]="";
                 values[0] = textSearch.getText().toString();
 
-                attributes[1] = "search_text";
-                if(edittype.getSelectedItem().toString().equals("select a option"))values[1] = "";
-                else
-                    values[1] = edittype.getSelectedItem().toString();
+                attributes[1] = "dokan_type";
+                values[1] = currentFilters.get(0);
+
+                currentFilters.clear();
 
 
 
 
-                for(int j=0; j<currentFilters.size()+1;j++){
+                for(int j=0; j<2;j++){
                     System.out.println("aguuun" + attributes[j] + " " + values[j]);
                 }
                 GetMethodHandler productRetriever = new GetMethodHandler(attributes, values, 2, "https://haatprotidin.com/php_an/dokan_list.php", context);
@@ -144,6 +155,36 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void processFinish(String output) {
+        System.out.println(output);
+        try {
+            JSONArray jsonArray= new JSONArray(output);
+            //System.out.println(jsonArray.toString());
+            int jsonlength = jsonArray.length();
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            System.out.println(jsonObject.toString() +"   " + jsonlength);
+            if(jsonObject.get("status").toString().equals("-1")){
+                Toast.makeText(DokanSearh.this, "Search Failed, Please try again.", Toast.LENGTH_SHORT).show();
+            }else if (jsonlength == 1){
+                Toast.makeText(DokanSearh.this, "No such Dokan!", Toast.LENGTH_SHORT).show();
+            } else {
 
+                for (int i = 1; i < jsonlength; i++) {
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                    Dokaninfo newdokan = new Dokaninfo(jsonObject1.getString("name"), jsonObject1.getString("address"));
+                    dokaninfos.add(newdokan);
+                    System.out.println(jsonObject1.getString("name") + jsonObject1.getString("address"));
+                    System.out.println(dokaninfos.get(i-1).name + dokaninfos.get(i-1).address);
+                }
+            }
+
+            listviewadapter adapter = new listviewadapter(this,dokaninfos);
+            listDokan.setAdapter(adapter);
+
+
+
+        }catch (Exception err){
+            Log.d("Error", err.toString());
+        }
     }
 }
