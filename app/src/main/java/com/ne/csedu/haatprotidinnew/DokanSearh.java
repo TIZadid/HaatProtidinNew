@@ -49,16 +49,9 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
         context = this;
 
         //hortag start
-        htRecyclerView = findViewById(R.id.hor_tag_recycler_view_v2);
-        layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
-        htRecyclerView.setLayoutManager(layoutManager);
         SearchDokan =findViewById(R.id.btDokanSearch);
-        htAdapter = new HorTagRecyclerViewAdapter(currentFilters,this);
-        htRecyclerView.setAdapter(htAdapter);
         textSearch = findViewById(R.id.etSearchDokan);
 
-        htAdapter = new HorTagRecyclerViewAdapter(currentFilters,this);
-        htRecyclerView.setAdapter(htAdapter);
 
         edittype = findViewById(R.id.ettype_v2);
         listDokan = findViewById(R.id.listdokan);
@@ -67,10 +60,10 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
 
         ArrayList<String> temp = new ArrayList<>();
         temp = fromhomeintent.getStringArrayListExtra("category");
-        categoryOptions.add(0,"select a option");
+        categoryOptions.add(0,"Any");
         categoryOptions.add("Wholeseller");
         categoryOptions.add("Retailer");
-        categoryOptions.add("Any");
+
 
         currentFilters = getIntent().getStringArrayListExtra("currentFilters");
         if(currentFilters == null) currentFilters = new ArrayList<>();
@@ -93,21 +86,17 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
         edittype.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(parent.getItemAtPosition(position).equals("select a option")){
-                    System.out.println("mammmmaaa mojaaaaa");
-                }
-                else {
-                    if(currentFilters.contains(parent.getItemAtPosition(position))){
+
+                    if(currentFilters.contains(parent.getItemAtPosition(position)) && position !=0){
                         Toast.makeText(DokanSearh.this, categoryOptions.get(position) + " Already Selected", Toast.LENGTH_SHORT).show();
                     }else{
                         System.out.println(parent.getItemAtPosition(position));
                         currentFilters.clear();
                         Toast.makeText(DokanSearh.this, categoryOptions.get(position) + " selected", Toast.LENGTH_SHORT).show();
                         currentFilters.add(categoryOptions.get(position));
-                        htAdapter.update(currentFilters);
-                        parent.setSelection(0);
+                        //parent.setSelection(0);
                     }
-                }
+
                 System.out.println(currentFilters);
             }
 
@@ -130,7 +119,8 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
                 values[0] = textSearch.getText().toString();
 
                 attributes[1] = "dokan_type";
-                values[1] = currentFilters.get(0);
+                if(currentFilters.size() == 0)values[1] = "";
+                else values[1] = currentFilters.get(0);
 
                 currentFilters.clear();
 
