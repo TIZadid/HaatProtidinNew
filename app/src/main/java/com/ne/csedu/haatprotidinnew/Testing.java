@@ -23,7 +23,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 
-public class Testing extends AppCompatActivity implements AsyncResponse2{
+public class Testing extends AppCompatActivity implements AsyncResponseImage{
 
     Context context;
     private static final int PICK_PHOTO_FOR_AVATAR = 0;
@@ -55,7 +55,7 @@ public class Testing extends AppCompatActivity implements AsyncResponse2{
         Janina.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GetMethodHandler2 gt = new GetMethodHandler2("https://haatprotidin.com/php_an/hudai.php",file,context);
+                imageSendingHandler gt = new imageSendingHandler("https://haatprotidin.com/php_an/hudai.php",file,context);
                 try {
                     gt.execute().get();
                 } catch (ExecutionException e) {
@@ -92,7 +92,7 @@ public class Testing extends AppCompatActivity implements AsyncResponse2{
 
         }
     }
-
+    //eikhan theke copy shuru
     public void checkPermission(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -176,6 +176,7 @@ public class Testing extends AppCompatActivity implements AsyncResponse2{
             System.out.println("test e nai");
         }
     }
+    //eikhane shesh
 
     @Override
     public void processFinish(String output) {

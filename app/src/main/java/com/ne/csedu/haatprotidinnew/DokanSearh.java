@@ -51,6 +51,7 @@ public class DokanSearh extends AppCompatActivity implements AsyncResponse{
         //hortag start
         SearchDokan =findViewById(R.id.btDokanSearch);
         textSearch = findViewById(R.id.etSearchDokan);
+//duibar ken?
 
 
         edittype = findViewById(R.id.ettype_v2);

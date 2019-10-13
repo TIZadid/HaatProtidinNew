@@ -16,10 +16,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
-interface AsyncResponse2 {
+interface AsyncResponseImage {
     void processFinish(String output);
 }
-public class GetMethodHandler2 extends AsyncTask<String, String, String>{
+public class imageSendingHandler extends AsyncTask<String, String, String>{
 
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final MediaType MEDIA_TYPE_JPG=MediaType.parse("image/jpg");
@@ -30,11 +30,11 @@ public class GetMethodHandler2 extends AsyncTask<String, String, String>{
     File file;
 
 
-    AsyncResponse2 delegate ;
-    public GetMethodHandler2(String initUrl, File file, Context delegate){
+    AsyncResponseImage delegate ;
+    public imageSendingHandler(String initUrl, File file, Context delegate){
         this.initUrl = initUrl;
         this.file = file;
-        this.delegate = (AsyncResponse2) delegate;
+        this.delegate = (AsyncResponseImage) delegate;
         if(file.exists()){
             System.out.println("ooppa e ase");
         }else{
