@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,15 +11,29 @@
     tools:context=".Testing">
 
 
+    <ImageView
+        android:id="@+id/testimage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars[0]" />
+
+    <Button
+        android:id="@+id/selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#cc3300"
+        android:text="select korun"
+        android:textColor="@android:color/white" />
+
     <Button
         android:id="@+id/btnjanina"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="#cc3300"
-        android:text="Ki jani"
+        android:text="patha"
         android:textColor="@android:color/white" />
-
 
 
 </LinearLayout>

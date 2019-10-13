@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -21,18 +22,24 @@ interface AsyncResponse2 {
 public class GetMethodHandler2 extends AsyncTask<String, String, String>{
 
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType MEDIA_TYPE_JPG=MediaType.parse("image/jpg");
 
     OkHttpClient client = new OkHttpClient();
-    String attribute[], value[];
-    int numberOfComponents;
     String initUrl;
     String res; // the result is stored in this
+    File file;
 
 
     AsyncResponse2 delegate ;
-    public GetMethodHandler2(String initUrl, Context delegate){
+    public GetMethodHandler2(String initUrl, File file, Context delegate){
         this.initUrl = initUrl;
+        this.file = file;
         this.delegate = (AsyncResponse2) delegate;
+        if(file.exists()){
+            System.out.println("ooppa e ase");
+        }else{
+            System.out.println("ooppa e nai");
+        }
     }
 
 
@@ -42,8 +49,8 @@ public class GetMethodHandler2 extends AsyncTask<String, String, String>{
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("username", "nana")
-                .addFormDataPart("datetime", "mana")
+                .addFormDataPart("img", "no_idea", RequestBody.create(MEDIA_TYPE_JPG, file))
+                .addFormDataPart("hunk", "punk")
                 .build();
 
         Request request = new Request.Builder()

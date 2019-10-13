@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DokanSearh"></activity>
-        <activity android:name=".Testing"></activity>
+        <activity android:name=".Testing">
+
+        </activity>
         <activity android:name=".Dokan" />
         <activity android:name=".Profile" />
         <activity android:name=".ProductPage" />
@@ -29,5 +31,7 @@
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
