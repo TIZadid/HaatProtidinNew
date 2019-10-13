@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:background="@color/hpcolor"
-
     android:orientation="vertical"
     tools:context=".Register">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@android:color/white"
-        >
+        android:orientation="vertical">
 
 
         <TextView
@@ -24,43 +23,39 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
             android:gravity="center"
-            android:text="WholeSell Search "
+            android:text="WholeSell Products"
             android:textAllCaps="true"
             android:textColor="#cc3300"
             android:textSize="25sp"
             android:textStyle="bold" />
 
 
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/etSearchtext"
-                android:layout_height="match_parent"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
                 android:layout_weight="3"
                 android:background="@drawable/round_back"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:drawablePadding="10dp"
                 android:hint="Text Search"
-                android:textSize="15sp"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:textColor="#000"
-                android:drawablePadding="10dp"
-                android:drawableLeft="@android:drawable/ic_menu_search"
-                />
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btnSearch"
-                android:layout_height="match_parent"
                 android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10sp"
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
@@ -70,29 +65,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/QA_top_place"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:id="@+id/QA_top_place"
             android:layout_gravity="center"
-            android:orientation="horizontal"
             android:layout_marginTop="5dp"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:text="Selected Tags: "
                 android:textColor="#808080"
-                android:textSize="15dp"/>
+                android:textSize="15dp" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hor_tag_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                android:id="@+id/hor_tag_recycler_view">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:orientation="horizontal"></androidx.recyclerview.widget.RecyclerView>
 
 
         </LinearLayout>
@@ -116,13 +109,12 @@
             android:orientation="horizontal">
 
 
-
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/ettype"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
+
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/etcolor"
                 android:layout_width="match_parent"
@@ -130,12 +122,12 @@
                 android:layout_weight="1.1"
 
                 />
+
             <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                 android:id="@+id/etlocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -146,8 +138,6 @@
             android:orientation="horizontal">
 
 
-
-
         </LinearLayout>
 
 
@@ -155,8 +145,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-
 
 
         </LinearLayout>
@@ -166,21 +154,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginTop="2dp"
         android:background="@android:color/white"
-        >
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="5dp"
             android:id="@+id/pref_Recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
             android:background="@android:color/white"
-            android:orientation="vertical"
-             />
+            android:orientation="vertical" />
     </LinearLayout>
-
 
 
 </LinearLayout>
